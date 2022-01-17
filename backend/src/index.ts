@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use('/api', router);
 console.log(process.env.DB_URL)
-mongoose.createConnection(process.env.DB_URL || 'mongodb://db:27017/tweetulator')
+mongoose.connect(process.env.DB_URL || 'mongodb://mongo:mongo@db:27017/tweetulator')
 
 if (process.env.NODE_ENV !== 'production') {
   const port = process.env.PORT || 3001;
