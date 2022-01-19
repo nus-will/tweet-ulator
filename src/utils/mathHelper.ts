@@ -16,5 +16,5 @@ export const mathIt = (operator: string, x: string, y: string) => {
     default:
       break;
   }
-  return res.toFixed(2);
+  return parseFloat(res.toFixed(2));
 };

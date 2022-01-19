@@ -11,7 +11,7 @@ type Props = {
 export const MessageItem: React.FC<Props> = props => {
   const [replyMessage, setReplyMessage] = React.useState('');
   const { currentUser, currentMessage, parentMessage, onReplyMessage } = props;
-  const isHasChildren = currentMessage && currentMessage.children && currentMessage.children.length > 0;
+  const isHasChildren = currentMessage?.children?.length > 0;
   const isHasParent = parentMessage !== null;
 
   let childrenMessages = isHasChildren && currentMessage.children;
@@ -19,15 +19,19 @@ export const MessageItem: React.FC<Props> = props => {
     return (Date.parse(a.createdAt) - Date.parse(b.createdAt));
   });
 
-  const lastChildrentMessage = parentMessage && parentMessage.children && parentMessage.children[parentMessage.children.length - 1]
+  const lastChildrentMessage = parentMessage?.children[parentMessage?.children?.length - 1]
   const canReplyIfLastChild = (lastChildrentMessage && lastChildrentMessage._id === currentMessage._id)
   const canReply = currentUser && currentUser !== currentMessage.author
     && (isHasChildren ? canReplyIfLastChild : (isHasParent ? canReplyIfLastChild : true))
 
-  console.log("--------")
-  console.log("parentMessage", parentMessage?.children?.map((message: any) => message.text))
-  console.log("currentMessage", parentMessage?.children?.findIndex((message: any) => message._id === currentMessage._id))
-  // console.log("mathIt", mathIt("/", "10", "10"))
+  const allMaths = parentMessage?.children?.map((message: any) => message.text);
+  const childIndex = parentMessage?.children?.findIndex((message: any) => message._id === currentMessage._id);
+  const allMathsForChild = allMaths?.slice(0, childIndex + 1)
+
+  let messageResult = parseFloat(parentMessage?.text);
+  allMathsForChild?.forEach((operatorNumber: string) => {
+    messageResult = mathIt(operatorNumber[0], messageResult.toString(), operatorNumber.substring(1))
+  })
 
   const handleSubmitReply = () => {
     onReplyMessage(replyMessage, currentMessage._id);
@@ -45,7 +49,7 @@ export const MessageItem: React.FC<Props> = props => {
               Message: { currentMessage.text }
             </div>
             <div className="flex-grow-1 ms-3">
-              Result: { }
+              {!isNaN(messageResult) ? `Result: ${messageResult}` : ''}
             </div>
             { canReply && (
               <>
