@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 const messageSchema = new mongoose.Schema(
   {
     parentId: {
-      type: mongoose.Schema.Types.ObjectId
+      type: mongoose.Schema.Types.ObjectId,
+      index: true
     },
     text: {
       type: String,

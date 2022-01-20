@@ -1,46 +1,23 @@
-# Getting Started with Create React App
+### Tweet-ulator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Demo and setup locally
 
-## Available Scripts
+The working demo for this can be found at [https://tweet-ulator.vercel.app/](https://tweet-ulator.vercel.app/)
 
-In the project directory, you can run:
+To start the project locally:
 
-### `yarn start`
+1. Rename `.env.example` to `.env`
+2. Rename `backend/.env.example` to `backend/.env`
+3. Run `docker-compose up`. The frontend will take a while to start in the first time due to installing packages
+4. Visit [http://localhost:3000](http://localhost:3000)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Notes
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. I place the `backend` inside the frontend repository for faster deployment to Vercel. In real project, that should be in separate repository
+2. In this test, I only handle integer numbers for the input
+3. The login feature is just a placeholder, when logging in, I simply set the username as the author for replies/messages, password doesn't do anything here
+4. For simplicity, I locked the thread to a single tree for each starting message, no branching. Supporting branching should not be an issue, just some more frontend works
+5. Messages storage approach:
 
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+  - I decided to save them flat (instead of sub-documents) because this will help us manage the endless replying levels better. For example, when adding a reply, we just need the parent ID instead of all upper-level IDs
+  - I used [Graph Lookup](https://docs.mongodb.com/manual/reference/operator/aggregation/graphLookup/) to get the top-level messages and their replies inside. This will help us to support paging later instead of returning all messages and depend on the frontend to build the tree
