@@ -17,7 +17,7 @@ export const MessageItem: React.FC<Props> = props => {
   const isHasParent = parentMessage !== null;
 
   let childrenMessages = isHasChildren && currentMessage.children;
-  childrenMessages = childrenMessages && childrenMessages.sort(function(a: any,b: any): any{
+  childrenMessages = childrenMessages && childrenMessages.sort((a: any,b: any): any => {
     return (Date.parse(a.createdAt) - Date.parse(b.createdAt));
   });
 
@@ -37,8 +37,9 @@ export const MessageItem: React.FC<Props> = props => {
 
   const msClass = childIndex >= 0 && childIndex * 5 < 100 ? `ms-${5 * childIndex}` : 'ms-100';
 
-  const handleSubmitReply = (e: any) => {
+  const handleSubmitReply = () => {
     setFormInvalid(false);
+    /* eslint-disable no-useless-escape */
     if (/^[\+|\-|\*|\/]\d+$/.test(replyMessage)) {
       onReplyMessage(replyMessage, currentMessage._id);
       Swal.fire(
@@ -92,7 +93,7 @@ export const MessageItem: React.FC<Props> = props => {
                         </div>
                         <div className="modal-footer">
                           <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={(e) => {handleSubmitReply(e)}}>Post</button>
+                          <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={() => {handleSubmitReply()}}>Post</button>
                         </div>
                       </div>
                     </form>
