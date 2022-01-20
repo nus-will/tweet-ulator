@@ -11,14 +11,13 @@ import { Header } from './components/layouts/Header';
 import { MessagePost } from './components/messages/MessagePost';
 import { MessageItem } from './components/messages/MessageItem';
 
-import { useParams } from 'react-router-dom';
-
 import axios from 'axios';
 
+import { useAppSelector } from './hooks';
+
 function App() {
-  const params = useParams();
-  const [currentUser, setCurrentUser] = React.useState('');
-  const [isLogged, setIsLogged] = React.useState(false);
+  const currentUser = useAppSelector(state => state.user.username);
+  const isLogged = useAppSelector(state => state.user.isLogged);
   const [messages, setMessages] = React.useState([]);
 
   const getMessages = async () => {
@@ -61,13 +60,6 @@ function App() {
   };
 
   React.useEffect(() => {
-    if (params.user) {
-      setCurrentUser(params.user)
-      setIsLogged(true)
-    }
-  }, [params])
-
-  React.useEffect(() => {
     getMessages();
   }, [])
 
@@ -91,7 +83,7 @@ function App() {
         <h3 className="">Messages:</h3>
         { messages && renderMessages() }
         { isLogged &&
-           <MessagePost currentUser={currentUser} onPostMessage={
+           <MessagePost onPostMessage={
              (postMessage) => postCreateMessage(postMessage)
            }/>
         }

@@ -1,12 +1,11 @@
 import * as React from 'react';
 
 type Props = {
-  currentUser: string;
   onPostMessage: (postMessage: string) => void;
 };
 
 export const MessagePost: React.FC<Props> = props => {
-  const { currentUser, onPostMessage } = props;
+  const { onPostMessage } = props;
   const [postMessage, setPostMessage] = React.useState('');
 
   const handleSubmit = () => {

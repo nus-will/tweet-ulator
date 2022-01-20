@@ -1,11 +1,23 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { useAppDispatch } from '../hooks';
+import { useNavigate } from "react-router-dom";
+import { login } from '../reducers/userSlice';
 // components
 import { Footer } from '../components/layouts/Footer';
 import { Header } from '../components/layouts/Header';
 
 export const Login: React.FC = () => {
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = React.useState('');
+
+  const dispatch = useAppDispatch();
+
+  const handleLogin = () => {
+    if (currentUser) {
+      dispatch(login(String(currentUser)))
+      navigate("../", { replace: true });
+    }
+  }
 
   return (
     <main>
@@ -22,12 +34,16 @@ export const Login: React.FC = () => {
               <input type="password" className="form-control mb-2" id="floatingPassword" placeholder="Password"/>
               <label htmlFor="floatingPassword">Password</label>
             </div>
-            <Link
+            <button
               className="w-100 btn btn-lg btn-primary"
-              to={`/users/${currentUser}`}
+              onClick={(e) => {
+                  e.preventDefault();
+                  handleLogin();
+                }
+              }
             >
               Sign in
-            </Link>
+            </button>
           </form>
         </div>
          <Footer/>
