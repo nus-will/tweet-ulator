@@ -43,3 +43,23 @@
     transform: rotate(360deg);
   }
 }
+
+.ms-0 { margin-left: 1.5rem!important; }
+.ms-10 { margin-left: 4rem!important;  }
+.ms-15 { margin-left: 5rem!important;  }
+.ms-20 { margin-left: 6rem!important;  }
+.ms-25 { margin-left: 7rem!important;  }
+.ms-30 { margin-left: 8rem!important;  }
+.ms-35 { margin-left: 9rem!important;  }
+.ms-40 { margin-left: 10rem!important;  }
+.ms-45 { margin-left: 11rem!important;  }
+.ms-50 { margin-left: 12rem!important;  }
+.ms-55 { margin-left: 13rem!important;  }
+.ms-60 { margin-left: 14rem!important;  }
+.ms-65 { margin-left: 15rem!important;  }
+.ms-70 { margin-left: 16rem!important;  }
+.ms-75 { margin-left: 17rem!important;  }
+.ms-80 { margin-left: 18rem!important;  }
+.ms-85 { margin-left: 19rem!important;  }
+.ms-90 { margin-left: 20rem!important;  }
+.ms-100 { margin-left: 21rem!important;  }

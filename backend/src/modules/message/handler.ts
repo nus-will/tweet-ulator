@@ -16,21 +16,6 @@ const create = async (req: Request, res: Response) => {
 
 }
 
-const createFirstMessage = async (req: Request, res: Response) => {
-  console.log(req.body)
-  try {
-    const message = await repo.createFirstMessage(req.body);
-    res.json({
-      message
-    })
-  } catch (error: any) {
-    res.status(400).json({
-      error: error.message
-    })
-  }
-
-}
-
 const list = async (req: Request, res: Response) => {
   try {
     const messages = await repo.list();
@@ -47,6 +32,5 @@ const list = async (req: Request, res: Response) => {
 
 export {
   create,
-  list,
-  createFirstMessage
+  list
 }

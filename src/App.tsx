@@ -1,9 +1,9 @@
 import React from 'react';
-import './App.css';
-
 // bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+
+import './App.css';
 
 // components
 import { Footer } from './components/layouts/Footer';
@@ -34,7 +34,7 @@ function App() {
 
   const postCreateMessage = async (message: string) => {
     console.log('postCreateMessage')
-    axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/messages/create-first-message`, {
+    axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/messages`, {
       author: currentUser,
       text: message
     }).then(function(response){

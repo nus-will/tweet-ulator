@@ -3,6 +3,12 @@ import MessageModel from "../../../models/message";
 
 export default async (message: Message) : Promise<Message> => {
   const model = new MessageModel(message);
-  await model.save();
+  if (model.parentId) {
+    await model.save();
+  } else {
+    if (/^\d+$/.test(model.text)) {
+      await model.save({ validateBeforeSave: false });
+    }
+  }
   return model;
 }
