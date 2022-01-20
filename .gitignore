@@ -24,3 +24,5 @@ yarn-error.log*
 
 docker/mongodb/data
 */.env
+.vercel
+api/*

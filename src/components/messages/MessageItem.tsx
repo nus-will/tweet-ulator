@@ -39,14 +39,8 @@ export const MessageItem: React.FC<Props> = props => {
 
   const handleSubmitReply = () => {
     setFormInvalid(false);
-    /* eslint-disable no-useless-escape */
-    if (/^[\+|\-|\*|\/]\d+$/.test(replyMessage)) {
+    if (/^[+|\-|*|/]\d+$/.test(replyMessage)) {
       onReplyMessage(replyMessage, currentMessage._id);
-      Swal.fire(
-        'Good job!',
-        'New message was added!',
-        'success'
-      )
     } else {
       setFormInvalid(true);
       Swal.fire(
